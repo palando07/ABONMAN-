@@ -29,7 +29,7 @@ test("iadeleri ve tutarsız satırları atlar", () => {
 test("örnek veride abonelik, zam ve fatura sıçramasını bulur", () => {
   const { subs, bills } = analyze(parseText(sample).tx);
   const byKey = Object.fromEntries([...subs, ...bills].map(s => [s.key, s]));
-  assert.deepStrictEqual(subs.map(s => s.key).sort(),
+  assert.deepStrictEqual([...subs.map(s => s.key)].sort().map(String),
     ["exxen", "icloud", "macfit", "netflix", "spotify", "x:KELIME OYUNU", "youtube"]);
   assert.ok(Math.abs(byKey.netflix.change - 0.2174) < 0.001);
   assert.ok(byKey.dogalgaz.vsAvg > 1);
