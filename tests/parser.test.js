@@ -35,3 +35,11 @@ test("örnek veride abonelik, zam ve fatura sıçramasını bulur", () => {
   assert.ok(byKey.dogalgaz.vsAvg > 1);
   assert.ok(!subs.some(s => /MIGROS|SHELL|TRENDYOL/.test(s.key)), "tek seferlik harcamalar abonelik sayılmaz");
 });
+
+test("mobil uygulamanın ayrıştırıcısı web prototipiyle aynı sonucu verir", () => {
+  const mobil = require("../mobile/src/avci.js");
+  const web = analyze(parseText(sample).tx);
+  const mob = mobil.analyze(mobil.parseText(mobil.SAMPLE).tx);
+  assert.deepStrictEqual(mob.subs.map(s => [s.key, s.last]), [...web.subs].map(s => [s.key, s.last]));
+  assert.deepStrictEqual(mob.bills.map(s => [s.key, s.last]), [...web.bills].map(s => [s.key, s.last]));
+});

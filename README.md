@@ -11,6 +11,8 @@ Banka SMS'lerinden ve kart ekstrelerinden unutulan abonelikleri, zamları ve nor
 Metin tarayıcının dışına çıkmaz, sunucu yoktur.
 
 ## Çalıştırma
-`index.html` dosyasını tarayıcıda açman yeterli. Testler için: `npm test` (Node 18+).
+- **Mobil uygulama (Android/iOS):** [`mobile/`](mobile/README.md). Android'de banka SMS'lerini otomatik okur.
+- **Web prototipi:** `index.html` dosyasını tarayıcıda açman yeterli.
+ Testler için: `npm test` (Node 18+).
 
 Plan ve sonraki adımlar: [docs/PLAN.md](docs/PLAN.md)

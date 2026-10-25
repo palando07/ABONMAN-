@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Abonelik Avcısı",
+    "slug": "abonman",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.palando07.abonman"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f6b55",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "package": "com.palando07.abonman",
+      "permissions": [
+        "READ_SMS"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
