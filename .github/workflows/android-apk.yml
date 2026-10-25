@@ -1,0 +1,51 @@
+name: Android APK
+
+on:
+  push:
+    branches: [main, prototip]
+    paths: ["mobile/**", ".github/workflows/android-apk.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: android-apk-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - run: npm ci
+      - run: npx expo prebuild --platform android --no-install
+      - name: APK derle
+        working-directory: mobile/android
+        run: ./gradlew assembleRelease --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: abonelik-avcisi-apk
+          path: mobile/android/app/build/outputs/apk/release/app-release.apk
+      - name: Telefondan indirilebilir sürüm yayınla
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-${{ github.ref_name }}
+          name: Abonelik Avcısı APK (${{ github.ref_name }})
+          prerelease: true
+          make_latest: false
+          body: Telefonda bu sayfayı açıp app-release.apk dosyasını indir ve kur. Her yeni derlemede güncellenir.
+          files: mobile/android/app/build/outputs/apk/release/app-release.apk
